@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manhal AlKhalaf | Portfolio</title>
+    <style>
+        /* --- Color Variables & Reset --- */
+        :root {
+            --bg-color: #fdfbf7;      /* Cream */
+            --text-color: #4a403a;    /* Dark Coffee */
+            --accent-color: #a1887f;  /* Light Brown */
+            --button-color: #d4a373;  /* Soft Gold/Orange */
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.8;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            font-weight: normal;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            background-color: var(--white);
+            padding: 20px 0;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-color);
+            margin: 0 20px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--button-color);
+        }
+
+        /* --- Sections --- */
+        section {
+            padding: 80px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            text-align: center;
+            padding: 120px 20px;
+            background-color: var(--bg-color);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--accent-color);
+            font-style: italic;
+        }
+
+        .hero-line {
+            width: 50px;
+            height: 2px;
+            background-color: var(--button-color);
+            margin: 20px auto;
+        }
+
+        /* --- Gallery --- */
+        .gallery {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background: var(--white);
+            padding: 15px;
+            border: 1px solid #eee;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            width: 250px;
+            text-align: center;
+        }
+
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            margin-bottom: 15px;
+            filter: sepia(20%);
+            cursor: pointer; /* Indicates clickability */
+            transition: transform 0.3s ease;
+        }
+
+        .card img:hover {
+            transform: scale(1.02);
+        }
+
+        /* --- Lightbox Styles --- */
+        .lightbox {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 2000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .lightbox-content {
+            max-width: 85%;
+            max-height: 80%;
+            border: 5px solid white;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+        }
+
+        .close-lightbox {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .close-lightbox:hover {
+            color: var(--button-color);
+        }
+
+        /* --- Video Section --- */
+        .video-container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* --- Contact Form --- */
+        .contact-container {
+            background-color: var(--white);
+            padding: 40px;
+            border: 1px solid #e0e0e0;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        input, textarea {
+            padding: 10px;
+            margin-top: 5px;
+            border: none;
+            border-bottom: 2px solid #ddd;
+            background: transparent;
+            font-family: inherit;
+        }
+
+        button {
+            margin-top: 30px;
+            padding: 15px 30px;
+            background-color: var(--button-color);
+            color: var(--white);
+            border: none;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            background-color: #4a403a;
+            color: #d7ccc8;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#welcome">Home</a>
+        <a href="#work">Projects</a>
+        <a href="#watch">Video</a>
+        <a href="#reach">Contact</a>
+    </nav>
+
+    <div id="lightbox" class="lightbox">
+        <span class="close-lightbox">&times;</span>
+        <img class="lightbox-content" id="lightbox-img" src="" alt="Fullscreen view">
+    </div>
+
+    <section id="welcome" class="hero">
+        <h1>Manhal AlKhalaf</h1>
+        <div class="hero-line"></div>
+        <p>Designing digital experiences with simplicity and purpose.</p>
+    </section>
+
+    <section id="work">
+        <h2 style="text-align: center; margin-bottom: 40px;">Selected Works</h2>
+        <div class="gallery">
+            <div class="card">
+                <img src="https://cdn.pixabay.com/photo/2026/01/15/07/58/superb-fairywren-10069195_1280.jpg" alt="Bird 1">
+                <h3>Bird One</h3>
+            </div>
+            <div class="card">
+                <img src="https://cdn.pixabay.com/photo/2026/01/15/07/58/superb-fairywren-10069195_1280.jpg" alt="Bird 2">
+                <h3>Bird Two</h3>
+            </div>
+            <div class="card">
+                <img src="https://cdn.pixabay.com/photo/2026/01/15/07/58/superb-fairywren-10069195_1280.jpg" alt="Bird 3">
+                <h3>Bird Three</h3>
+            </div>
+        </div>
+    </section>
+
+    <section id="watch" class="video-section">
+        <h2 style="text-align: center; margin-bottom: 40px;">In Motion</h2>
+        <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/ScMzIvxBSi4" title="Video Content" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </section>
+
+    <section id="reach">
+        <h2 style="text-align: center; margin-bottom: 40px;">Collaboration</h2>
+        <div class="contact-container">
+            <form>
+                <label for="fname">Full Name</label>
+                <input type="text" id="fname" name="fullname" placeholder="Manhal AlKhalaf" required>
+
+                <label for="uemail">Email Address</label>
+                <input type="email" id="uemail" name="email" placeholder="email@domain.com" required>
+
+                <label for="msg">Message</label>
+                <textarea id="msg" name="message" rows="4" placeholder="Tell me about your project..."></textarea>
+
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Manhal AlKhalaf Portfolio.</p>
+    </footer>
+
+    <script>
+        // Select Lightbox Elements
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const closeBtn = document.querySelector('.close-lightbox');
+        const images = document.querySelectorAll('.card img');
+
+        // Open Lightbox
+        images.forEach(image => {
+            image.addEventListener('click', () => {
+                lightbox.classList.add('active');
+                lightboxImg.src = image.src; // Set the source to the clicked image
+            });
+        });
+
+        // Close Lightbox (on X button click)
+        closeBtn.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+        });
+
+        // Close Lightbox (on background click)
+        lightbox.addEventListener('click', (e) => {
+            if (e.target !== lightboxImg) {
+                lightbox.classList.remove('active');
+            }
+        });
+    </script>
+
+</body>
+</html>
